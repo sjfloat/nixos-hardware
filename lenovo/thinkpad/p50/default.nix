@@ -6,6 +6,8 @@
     ../.
   ];
 
+  services.xserver.videoDrivers = [ "modesetting" "fbdev" ];
+
 #  hardware = {
 #    nvidia = {
 #      prime = {
