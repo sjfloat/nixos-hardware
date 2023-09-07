@@ -1,40 +1,40 @@
 { lib, config, ... }: {
   imports = [
-    ../../../common/gpu/nvidia/prime.nix
+    #../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel
     ../../../common/pc/laptop/acpi_call.nix
     ../.
   ];
 
-  hardware = {
-    nvidia = {
-      prime = {
-        intelBusId = lib.mkDefault "PCI:0:2:0";
-        nvidiaBusId = lib.mkDefault "PCI:1:0:0";
-      };
-    };
+#  hardware = {
+#    nvidia = {
+#      prime = {
+#        intelBusId = lib.mkDefault "PCI:0:2:0";
+#        nvidiaBusId = lib.mkDefault "PCI:1:0:0";
+#      };
+#    };
 
-    # is this too much?  It's convenient for Steam.
-    opengl = {
-      driSupport = lib.mkDefault true;
-      driSupport32Bit = lib.mkDefault true;
-    };
-  };
+#    # is this too much?  It's convenient for Steam.
+#    opengl = {
+#      driSupport = lib.mkDefault true;
+#      driSupport32Bit = lib.mkDefault true;
+#    };
+#  };
 
   # required to make wireless work
   hardware.enableAllFirmware = lib.mkDefault true;
 
-  # fix suspend/resume screen corruption in sync mode
-  hardware.nvidia.powerManagement =
-    lib.mkIf config.hardware.nvidia.prime.sync.enable {
-      enable = lib.mkDefault true;
-    };
+#  # fix suspend/resume screen corruption in sync mode
+#  hardware.nvidia.powerManagement =
+#    lib.mkIf config.hardware.nvidia.prime.sync.enable {
+#      enable = lib.mkDefault true;
+#    };
 
-  # fix screen tearing in sync mode
-  hardware.nvidia.modesetting =
-    lib.mkIf config.hardware.nvidia.prime.sync.enable {
-      enable = lib.mkDefault true;
-    };
+#  # fix screen tearing in sync mode
+#  hardware.nvidia.modesetting =
+#    lib.mkIf config.hardware.nvidia.prime.sync.enable {
+#      enable = lib.mkDefault true;
+#    };
 
   # Make the DPI the same in sync mode as in offload mode (disabled because
   # these thinkpads come with many kinds of screens, but this is valid for the
