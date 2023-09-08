@@ -1,14 +1,23 @@
 { lib, config, ... }: {
   imports = [
-    ../../../common/gpu/nvidia/prime.nix
+    # The nvidia files are poorly organized.
+    # prime.nix should really be named something like prime-offload.nix
+    ../../../common/gpu/nvidia/default.nix
     ../../../common/cpu/intel
     ../../../common/pc/laptop/acpi_call.nix
     ../.
   ];
 
+
   hardware = {
     nvidia = {
+
+      # Here are my options
+      # https://github.com/NixOS/nixpkgs/blob/2ffe299fe468517bf8e6e62822f806c0e2ab368b/pkgs/os-specific/linux/nvidia-x11/default.nix
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+
       prime = {
+        sync.enable = true;
         intelBusId = lib.mkDefault "PCI:0:2:0";
         nvidiaBusId = lib.mkDefault "PCI:1:0:0";
       };
@@ -39,7 +48,7 @@
   # Make the DPI the same in sync mode as in offload mode (disabled because
   # these thinkpads come with many kinds of screens, but this is valid for the
   # 1920x1080 ones)
-  #services.xserver.dpi = 96;
+  services.xserver.dpi = 96;
 
   # throttled vs. thermald
   # -----------------------
