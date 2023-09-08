@@ -14,7 +14,7 @@
 
       # Here are my options
       # https://github.com/NixOS/nixpkgs/blob/2ffe299fe468517bf8e6e62822f806c0e2ab368b/pkgs/os-specific/linux/nvidia-x11/default.nix
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
 
       prime = {
         sync.enable = true;
